@@ -12,8 +12,8 @@ static tKillMsg oKillMsg = nullptr;
 
 static int __cdecl hkKillMsg(int a1, int a2)
 {
-    int killerId = *(int*)(a1 + 2);
-    int victimId = *(int*)(a1 + 6);
+    int victimId = *(int*)(a1 + 2);
+    int killerId = *(int*)(a1 + 6);
 
     OnKillEvent(killerId, victimId);
 
