@@ -100,7 +100,6 @@ void SendFullScoreboard(uintptr_t baseGame)
 void MonitorScoreChanges(uintptr_t baseGame)
 {
     void** playerTable = (void**)(baseGame + 0x7AE9C8);
-    int lastPlayerCount = 0;
 
     while (true)
     {
@@ -143,17 +142,6 @@ void MonitorScoreChanges(uintptr_t baseGame)
                 it->second.kills = kills;
                 it->second.deaths = deaths;
             }
-        }
-
-        // Detekce změny počtu hráčů
-        if (currentPlayerCount != lastPlayerCount)
-        {
-            std::ostringstream event;
-            event << "{ \"type\":\"playerCountChange\", \"players\":" << currentPlayerCount << " }";
-            SendPipeMessage(event.str());
-
-            SendFullScoreboard(baseGame);
-            lastPlayerCount = currentPlayerCount;
         }
 
         std::this_thread::sleep_for(std::chrono::milliseconds(300));
